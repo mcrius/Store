@@ -3,6 +3,8 @@
   <persistence-unit name="com_Store_war_1.0-SNAPSHOTPU" transaction-type="JTA">
     <jta-data-source>jdbc/store</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+      <property name="eclipselink.flush-clear.cache" value="Merge"/>
+    </properties>
   </persistence-unit>
 </persistence>

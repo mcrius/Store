@@ -23,6 +23,8 @@
             <h:commandButton value="Click">
                 <f:ajax listener="#{index.ajaxCounter(e)}" execute="@form" render="@form"/>
             </h:commandButton>
+            
+            <h:commandButton value="Create item" action="createMenuItem"/>
         </h:form>
     </ui:define>
 
