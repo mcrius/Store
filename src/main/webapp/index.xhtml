@@ -3,13 +3,18 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./WEB-INF/templates/main.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:cr="http://xmlns.jcp.org/jsf/composite/cr">
 
     <ui:define name="top">
-        header + menu
-        <ui:repeat value="#{index.menuItems}" var="item">
-            <a href="#{item.link}">#{item.name}</a>
-        </ui:repeat>
+        <cr:menu>
+            <cr:submenu label="Submenu 1">
+                <ui:repeat value="#{index.menuItems}" var="item">
+                    <cr:menuitem label="#{item.name}" outcome="#{item.link}"/>
+                </ui:repeat>
+            </cr:submenu>
+        </cr:menu>
+        <div style="clear:both"/>
     </ui:define>
 
     <ui:define name="left">
@@ -23,7 +28,7 @@
             <h:commandButton value="Click">
                 <f:ajax listener="#{index.ajaxCounter(e)}" execute="@form" render="@form"/>
             </h:commandButton>
-            
+
             <h:commandButton value="Create item" action="createMenuItem"/>
         </h:form>
     </ui:define>
