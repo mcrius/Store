@@ -4,20 +4,30 @@
                 template="./WEB-INF/templates/main.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:b="http://bootsfaces.net/ui"
                 xmlns:cr="http://xmlns.jcp.org/jsf/composite/cr">
 
     <ui:define name="top">
-        <cr:menu>
-            <cr:submenu label="Submenu 1">
-                <ui:repeat value="#{index.menuItems}" var="item">
-                    <cr:menuitem label="#{item.name}" outcome="#{item.link}"/>
-                </ui:repeat>
-            </cr:submenu>
-        </cr:menu>
+	<b:column span="12">
+	    <b:navBar brand="Brand" brandHref="#" inverse="false">
+		
+		<b:navbarLinks>
+		    <b:navLink value="Home" href="#"></b:navLink>
+		    <b:navLink value="Link" href="#"></b:navLink>
+		    <b:navLink value="Link" href="#"></b:navLink>
+		    <b:dropMenu value="Submenu" class="drop">
+			<ui:repeat value="#{index.menuItems}" var="item">
+			    <b:navLink value="#{item.name}" href="#{item.link}" ></b:navLink>
+			</ui:repeat>
+		    </b:dropMenu>
+		</b:navbarLinks>
+
+	    </b:navBar>
+	</b:column>
     </ui:define>
 
     <ui:define name="left">
-        menu or comment
+
     </ui:define>
 
     <ui:define name="content">
