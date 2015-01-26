@@ -3,17 +3,31 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./WEB-INF/templates/main.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:b="http://bootsfaces.net/ui"
+                xmlns:cr="http://xmlns.jcp.org/jsf/composite/cr">
 
     <ui:define name="top">
-        header + menu
-        <ui:repeat value="#{index.menuItems}" var="item">
-            <a href="#{item.link}">#{item.name}</a>
-        </ui:repeat>
+	<b:column span="12">
+	    <b:navBar brand="Brand" brandHref="#" inverse="false">
+		
+		<b:navbarLinks>
+		    <b:navLink value="Home" href="#"></b:navLink>
+		    <b:navLink value="Link" href="#"></b:navLink>
+		    <b:navLink value="Link" href="#"></b:navLink>
+		    <b:dropMenu value="Submenu" class="drop">
+			<ui:repeat value="#{index.menuItems}" var="item">
+			    <b:navLink value="#{item.name}" href="#{item.link}" ></b:navLink>
+			</ui:repeat>
+		    </b:dropMenu>
+		</b:navbarLinks>
+
+	    </b:navBar>
+	</b:column>
     </ui:define>
 
     <ui:define name="left">
-        menu or comment
+
     </ui:define>
 
     <ui:define name="content">
@@ -23,7 +37,7 @@
             <h:commandButton value="Click">
                 <f:ajax listener="#{index.ajaxCounter(e)}" execute="@form" render="@form"/>
             </h:commandButton>
-            
+
             <h:commandButton value="Create item" action="createMenuItem"/>
         </h:form>
     </ui:define>
