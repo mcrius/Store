@@ -3,6 +3,7 @@ package com.store.beans;
 import com.store.entity.Menu;
 import com.store.facade.MenuFacade;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -26,7 +27,7 @@ public class Index implements Serializable {
 
     public Index() {
         System.out.println(">>>>> " + counter);
-        
+
     }
 
     @PostConstruct
@@ -34,10 +35,13 @@ public class Index implements Serializable {
         //init home page
         counter++;
         System.out.println(">>>>> " + counter);
-        menuItems = menuFacade.findAll();
+        menuItems = menuFacade.findAllWithoutParent();
+        for (Menu mi : menuItems) {
+            System.out.println(Arrays.toString(mi.getSubMenus().toArray()));
+        }
     }
-    
-    public void ajaxCounter(AjaxBehaviorEvent e){
+
+    public void ajaxCounter(AjaxBehaviorEvent e) {
         counter++;
     }
 
@@ -55,6 +59,10 @@ public class Index implements Serializable {
 
     public void setMenuItems(List<Menu> menuItems) {
         this.menuItems = menuItems;
+    }
+
+    public boolean notNullOrEmpty(List l) {
+        return l != null && !l.isEmpty();
     }
 
 }

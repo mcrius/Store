@@ -17,6 +17,11 @@
                 <h:inputText value="#{createMenuItemBean.item.link}">
                     <f:validateLength maximum="45" minimum="1"/>
                 </h:inputText>
+                <h:outputText value="Parent: "/>
+                <h:selectOneMenu value="#{createMenuItemBean.parentId}">
+                    <f:selectItem itemValue="-1" itemLabel="No parent."/>
+                    <f:selectItems value="#{createMenuItemBean.parents}" var="p" itemValue="#{p.id}" itemLabel="#{p.name}"/>
+                </h:selectOneMenu>
                 &nbsp;
                 <h:commandButton value="Create" action="#{createMenuItemBean.createMenuItem()}"/>
             </h:panelGrid>

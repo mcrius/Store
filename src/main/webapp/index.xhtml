@@ -4,26 +4,27 @@
                 template="./WEB-INF/templates/main.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
-		xmlns:b="http://bootsfaces.net/ui"
-                xmlns:cr="http://xmlns.jcp.org/jsf/composite/cr">
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="top">
-	<b:column span="12">
-	    <b:navBar brand="Brand" brandHref="#" inverse="false">
-		
-		<b:navbarLinks>
-		    <b:navLink value="Home" href="#"></b:navLink>
-		    <b:navLink value="Link" href="#"></b:navLink>
-		    <b:navLink value="Link" href="#"></b:navLink>
-		    <b:dropMenu value="Submenu" class="drop">
-			<ui:repeat value="#{index.menuItems}" var="item">
-			    <b:navLink value="#{item.name}" href="#{item.link}" ></b:navLink>
-			</ui:repeat>
-		    </b:dropMenu>
-		</b:navbarLinks>
+        <b:column span="12">
+            <b:navBar brand="Brand" brandHref="#" inverse="false">
 
-	    </b:navBar>
-	</b:column>
+                <b:navbarLinks>
+                    <ui:repeat value="#{index.menuItems}" var="item">
+                        <b:dropMenu value="#{item.name}" rendered="#{index.notNullOrEmpty(item.subMenus)}" class="drop">
+                            <b:navLink value="#{item.name}" href="#"/>
+                            <ui:repeat value="#{item.subMenus}" var="sm">
+                                <b:navLink value="#{sm.name}" href="#" />
+                            </ui:repeat>
+                        </b:dropMenu>
+                        <b:navLink value="#{item.name}" href="#" rendered="#{!index.notNullOrEmpty(item.subMenus)}"/>
+                    </ui:repeat>
+                </b:navbarLinks>
+
+            </b:navBar>
+        </b:column>
     </ui:define>
 
     <ui:define name="left">
