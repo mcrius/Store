@@ -34,6 +34,7 @@
     <ui:define name="content">
         #{sessionBean.user}
         <h:form>
+            <b:commandButton value="CREATE OFFER" action="createOffer"/>
             <h:inputText value="#{index.counter}"/>
             <h:commandButton value="Click">
                 <f:ajax listener="#{index.ajaxCounter(e)}" execute="@form" render="@form"/>
@@ -41,6 +42,61 @@
 
             <h:commandButton value="Create item" action="createMenuItem"/>
         </h:form>
+
+        <f:view>
+
+
+            <h:form>
+                <h1><h:outputText value="List"/></h1>
+                <h:dataTable value="#{index.offerItems}" var="item">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{item.id}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Name"/>
+                        </f:facet>
+                        <h:outputText value="#{item.name}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="CategoryId"/>
+                        </f:facet>
+                        <h:outputText value="#{item.categoryId}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="ValidUntil"/>
+                        </f:facet>
+                        <h:outputText value="#{item.validUntil}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Description"/>
+                        </f:facet>
+                        <h:outputText value="#{item.description}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="UserId"/>
+                        </f:facet>
+                        <h:outputText value="#{item.userId}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Price"/>
+                        </f:facet>
+                        <h:outputText value="#{item.price}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </f:view>
+
     </ui:define>
 
     <ui:define name="bottom">

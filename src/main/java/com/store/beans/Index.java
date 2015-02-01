@@ -1,7 +1,9 @@
 package com.store.beans;
 
 import com.store.entity.Menu;
+import com.store.entity.Offer;
 import com.store.facade.MenuFacade;
+import com.store.facade.OfferFacade;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
@@ -21,9 +23,12 @@ public class Index implements Serializable {
 
     @Inject
     MenuFacade menuFacade;
+    @Inject
+    OfferFacade offerFacade;
 
     private Integer counter = -1;
     private List<Menu> menuItems;
+    private List<Offer> offerItems = null;
 
     public Index() {
         System.out.println(">>>>> " + counter);
@@ -39,6 +44,8 @@ public class Index implements Serializable {
         for (Menu mi : menuItems) {
             System.out.println(Arrays.toString(mi.getSubMenus().toArray()));
         }
+        offerItems = offerFacade.findAll();
+        
     }
 
     public void ajaxCounter(AjaxBehaviorEvent e) {
@@ -61,6 +68,15 @@ public class Index implements Serializable {
         this.menuItems = menuItems;
     }
 
+    public List<Offer> getOfferItems() {
+        return offerItems;
+    }
+
+    public void setOfferItems(List<Offer> offerItems) {
+        this.offerItems = offerItems;
+    }
+
+    
     public boolean notNullOrEmpty(List l) {
         return l != null && !l.isEmpty();
     }
