@@ -7,11 +7,15 @@ package com.store.beans;
 
 import java.beans.*;
 import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Machkonti
  */
+@ViewScoped
+@ManagedBean
 public class CreateOfferItemBean implements Serializable {
     
     public static final String PROP_SAMPLE_PROPERTY = "sampleProperty";

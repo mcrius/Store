@@ -10,8 +10,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -30,55 +32,64 @@ public class Index implements Serializable {
     private List<Menu> menuItems;
     private List<Offer> offerItems = null;
 
+    private HttpServletRequest req = null;
+
     public Index() {
-        System.out.println(">>>>> " + counter);
+	System.out.println(">>>>> " + counter);
 
     }
 
     @PostConstruct
     public void init() {
-        //init home page
-        counter++;
-        System.out.println(">>>>> " + counter);
-        menuItems = menuFacade.findAllWithoutParent();
-        for (Menu mi : menuItems) {
-            System.out.println(Arrays.toString(mi.getSubMenus().toArray()));
-        }
-        offerItems = offerFacade.findAll();
-        
+	//init home page
+	counter++;
+	System.out.println(">>>>> " + counter);
+	menuItems = menuFacade.findAllWithoutParent();
+	for (Menu mi : menuItems) {
+	    System.out.println(Arrays.toString(mi.getSubMenus().toArray()));
+	}
+	
+	req = (HttpServletRequest)FacesContext.getCurrentInstance()
+		.getExternalContext().getRequest();
+	System.out.println(req.getParameter("property"));
+	
+	if(req != null) {
+	    offerItems = offerFacade.findAllByCategory(req.getParameter("c"));
+	} else {
+	    offerItems = offerFacade.findAll();
+	}
     }
 
     public void ajaxCounter(AjaxBehaviorEvent e) {
-        counter++;
+	counter++;
     }
 
     public Integer getCounter() {
-        return counter;
+	return counter;
     }
 
     public void setCounter(Integer counter) {
-        this.counter = counter;
+	this.counter = counter;
     }
 
     public List<Menu> getMenuItems() {
-        return menuItems;
+	return menuItems;
     }
 
     public void setMenuItems(List<Menu> menuItems) {
-        this.menuItems = menuItems;
+	this.menuItems = menuItems;
     }
 
     public List<Offer> getOfferItems() {
-        return offerItems;
+	return offerItems;
     }
 
     public void setOfferItems(List<Offer> offerItems) {
-        this.offerItems = offerItems;
+	this.offerItems = offerItems;
     }
 
-    
     public boolean notNullOrEmpty(List l) {
-        return l != null && !l.isEmpty();
+	return l != null && !l.isEmpty();
     }
 
 }

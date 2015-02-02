@@ -40,5 +40,10 @@ public class OfferFacade extends AbstractFacade<Offer> {
     public List<Offer> findAll() {
         return em.createNamedQuery("Offer.findAll", Offer.class).getResultList();
     }
+    
+    public List<Offer> findAllByCategory(String c) {
+	System.out.println("CategoryID = " + c);
+	return em.createNamedQuery("Offer.findByCategoryId", Offer.class).setParameter("categoryId", c).getResultList();
+    }
 
 }

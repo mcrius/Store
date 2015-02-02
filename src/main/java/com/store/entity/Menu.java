@@ -83,7 +83,7 @@ public class Menu implements Serializable {
     }
 
     public String getLink() {
-        return link;
+        return "view.xhtml?c="+link;
     }
 
     public void setLink(String link) {

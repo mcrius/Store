@@ -16,6 +16,23 @@
     <h:body>
 
         <b:row id="top">
+	    <b:column span="12">
+		<b:navBar brand="Brand" brandHref="index.xhtml" inverse="false">
+
+		    <b:navbarLinks>
+			<ui:repeat value="#{index.menuItems}" var="item">
+			    <b:dropMenu value="#{item.name}" rendered="#{index.notNullOrEmpty(item.subMenus)}" class="drop">
+				<b:navLink value="#{item.name}" href="${item.link}"/>
+				<ui:repeat value="#{item.subMenus}" var="sm">
+				    <b:navLink value="#{sm.name}" href="#{item.link}" />
+				</ui:repeat>
+			    </b:dropMenu>
+			    <b:navLink value="#{item.name}" href="#{item.link}" rendered="#{!index.notNullOrEmpty(item.subMenus)}"/>
+			</ui:repeat>
+		    </b:navbarLinks>
+
+		</b:navBar>
+	    </b:column>
             <ui:insert name="top">Top</ui:insert>
         </b:row>
 
