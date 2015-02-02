@@ -5,7 +5,6 @@
  */
 package com.store.facade;
 
-import com.store.entity.Menu;
 import com.store.entity.Offer;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -41,7 +40,7 @@ public class OfferFacade extends AbstractFacade<Offer> {
         return em.createNamedQuery("Offer.findAll", Offer.class).getResultList();
     }
     
-    public List<Offer> findAllByCategory(String c) {
+    public List<Offer> findAllByCategory(Integer c) {
 	System.out.println("CategoryID = " + c);
 	return em.createNamedQuery("Offer.findByCategoryId", Offer.class).setParameter("categoryId", c).getResultList();
     }
